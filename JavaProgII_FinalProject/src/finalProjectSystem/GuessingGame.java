@@ -32,7 +32,7 @@ public class GuessingGame {
 		Main.centerStart(this.dividerLength, this.title.length());
 		System.out.println(this.title);
 
-		System.out.println("\n Guess a number between 1 - " + this.range);
+		System.out.println("\n Guess a number from 1 - " + this.range);
 		System.out.println(" Max Attempts: " + this.maxAttempts + "\n");
 
 		for (int i = 1; i <= this.maxAttempts; i++) {
