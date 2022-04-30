@@ -1,80 +1,101 @@
 package finalProjectSystem;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
 
 public class LeaderBoards {
 	// All added players are located in C: drive
-	final String DIRECTORY = "C:/GuessTheNumber_Players";
+	final File directoryPath = new File("C:/GuessTheNumber_Players");
 	final int dividerLength = 62;
-	
+
+	// Class attributes
 	String gamemode;
-	
+
+	// Class constructor
 	public LeaderBoards(String gamemode) {
 		this.gamemode = gamemode;
 	}
-	
-    File directoryPath = new File(DIRECTORY);
-    
-    File filesList[] = directoryPath.listFiles();     
-    
-    public void show(int gamemode) throws IOException {
-    	Integer[] bestAttempts = new Integer[filesList.length];
-    	String[] userNames = new String[filesList.length];
-    	
-    	for(int i = 0; i < filesList.length; i++) {
-    		try {
-    			String bestAttempt = 
-    					Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(gamemode);
-    			String userName = 
-    					Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(0);
-				
-    			bestAttempts[i] = Integer.valueOf(bestAttempt.substring(13, bestAttempt.length()));
-				userNames[i] = userName.substring(9, userName.length());
-				
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+
+	// method for showing leaderboard depending on gamemode
+	public void show() throws IOException {
+		Player[] players = Main.getPlayers(directoryPath);
+
+		String output = "";
+
+		// bubble sort
+		for (int i = 0; i < players.length; i++) {
+			for (int j = 1; j < (players.length - i); j++) {
+				if (getCondition(players[j - 1], players[j])) {
+					Player temp = players[j - 1];
+					players[j - 1] = players[j];
+					players[j] = temp;
+				}
 			}
-    	}
-    	
-    	Arrays.sort(bestAttempts);
-    	
-    	for(int i = 0; i < filesList.length; i++){
-			for(int j = 1; j < (filesList.length - i); j++){
-                if(bestAttempts[j-1] < bestAttempts[j]) {  
-                	String temp = userNames[j-1];  
-                	userNames[j-1] = userNames[j];  
-                	userNames[j] = temp;  
-                }         
-            } 
 		}
-    	
-    	
-    	
-    	// Shows leader board
-    	
-    	Main.divider('-', this.dividerLength);
-		// content
-    	Main.centerStart(this.dividerLength, 12);
-    	System.out.println("LEADERBOARDS");
+
+		// shows leader board
+		Main.divider('-', this.dividerLength);
 		Main.centerStart(this.dividerLength, this.gamemode.length());
 		System.out.println(this.gamemode);
-		
-		for(int i = 0; i < filesList.length; i++) {
-			String playerLine = userNames[i]+"\t- "+bestAttempts[i];
-			
-			Main.centerStart(this.dividerLength, playerLine.length());
-			System.out.println(playerLine);
+
+		for (int i = 0; i < players.length; i++) {
+			if (getAttempt(players[i]) != 0) {
+				String playerLine = players[i].userName + " - " + String.valueOf(getAttempt(players[i]));
+
+				Main.centerStart(this.dividerLength, playerLine.length());
+				System.out.println(playerLine);
+			}
 		}
-		// end of content
+
 		Main.divider('-', this.dividerLength);
-    	for(int i = 0; i < filesList.length; i++) {
-    		
-    	}
-    	
-    }
+		for (int i = 0; i < players.length; i++) {
+
+		}
+
+	}
+
+	// function for getting bubble sort condition depending on game mode
+	private Boolean getCondition(Player player1, Player player2) {
+		Boolean condition = false;
+
+		switch (this.gamemode) {
+			case "Easy":
+				condition = player1.easyBestAttempt > player2.easyBestAttempt;
+				break;
+			case "Normal":
+				condition = player1.normalBestAttempt > player2.normalBestAttempt;
+				break;
+			case "Difficult":
+				condition = player1.difficultBestAttempt > player2.difficultBestAttempt;
+				break;
+			case "Hardcore":
+				condition = player1.hardcoreBestAttempt > player2.hardcoreBestAttempt;
+				break;
+		}
+
+		return condition;
+	}
+
+	// function for getting the best attempt depending on gamemode
+	private int getAttempt(Player player) {
+		int attempt = 0;
+
+		switch (this.gamemode) {
+			case "Easy":
+				attempt = player.easyBestAttempt;
+				break;
+			case "Normal":
+				attempt = player.normalBestAttempt;
+				break;
+			case "Difficult":
+				attempt = player.difficultBestAttempt;
+				break;
+			case "Hardcore":
+				attempt = player.hardcoreBestAttempt;
+				break;
+		}
+
+		return attempt;
+	}
+
 }

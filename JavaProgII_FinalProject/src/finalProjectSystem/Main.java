@@ -139,6 +139,7 @@ public class Main {
 		for (int i = 0; i < filesList.length; i++) {
 			String userName = Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(0).substring(10);
 			String password = Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(1).substring(10);
+
 			int easyBestAttempt = Integer.valueOf(
 					Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(2).substring(13));
 			int normalBestAttempt = Integer.valueOf(
