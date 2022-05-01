@@ -22,7 +22,7 @@ public class GuessingGame {
 	// function for starting the game
 	public int start() {
 		Random rand = new Random();
-		int numToGuess = rand.nextInt(this.range);
+		int numToGuess = rand.nextInt(this.range) + 1;
 
 		int numOfAttempts = 0;
 		int guess;
