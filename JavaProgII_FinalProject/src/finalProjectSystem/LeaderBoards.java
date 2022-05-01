@@ -20,8 +20,6 @@ public class LeaderBoards {
 	public void show() throws IOException {
 		Player[] players = Main.getPlayers(directoryPath);
 
-		String output = "";
-
 		// bubble sort
 		for (int i = 0; i < players.length; i++) {
 			for (int j = 1; j < (players.length - i); j++) {
@@ -48,10 +46,6 @@ public class LeaderBoards {
 		}
 
 		Main.divider('-', this.dividerLength);
-		for (int i = 0; i < players.length; i++) {
-
-		}
-
 	}
 
 	// function for getting bubble sort condition depending on game mode
