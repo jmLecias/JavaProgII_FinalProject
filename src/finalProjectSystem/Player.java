@@ -27,30 +27,39 @@ public class Player {
 	// method for logging in a player
 	public String login(String message) throws IOException {
 		Player[] players = Main.getPlayers(directoryPath);
-
-		for (Player player : players) {
-			if (this.userName.equals(player.userName)) {
-				if (this.password.equals(player.userName)) {
-
+		
+		Boolean isPlayerFound = false;
+		Boolean isPasswordCorrect = false;
+		
+		for (int i = 0; i < players.length; i++) {
+			if (this.userName.equals(players[i].userName)) {
+				isPlayerFound = true;
+				
+				if (this.password.equals(players[i].password)) {
+					isPasswordCorrect = true;
+					
 					String decision = Main.getInput(message, "[y Y n N]");
 					if (decision.matches("[y Y]")) {
-						this.easyBestAttempt = player.easyBestAttempt;
-						this.normalBestAttempt = player.normalBestAttempt;
-						this.difficultBestAttempt = player.difficultBestAttempt;
-						this.hardcoreBestAttempt = player.hardcoreBestAttempt;
+						this.easyBestAttempt = players[i].easyBestAttempt;
+						this.normalBestAttempt = players[i].normalBestAttempt;
+						this.difficultBestAttempt = players[i].difficultBestAttempt;
+						this.hardcoreBestAttempt = players[i].hardcoreBestAttempt;
 						return "Y";
 					} else {
 						return "N";
 					}
-				} else {
-					System.out.println(" Incorrect password.");
-					break;
 				}
-			} else {
-				System.out.println(" Player not found.");
-				break;
 			}
 		}
+		
+		if(!isPlayerFound) {
+			System.out.println(" Player not found.");
+		}
+		
+		if(isPlayerFound && !isPasswordCorrect) {
+			System.out.println(" Password is incorrect.");
+		}
+		
 		return null;
 	}
 
