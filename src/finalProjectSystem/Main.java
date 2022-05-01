@@ -77,51 +77,27 @@ public class Main {
 	// function for the guessing game
 	public static void guessingGame(OptionSelector os, Player player) throws IOException {
 		Boolean quit = false;
-		while (quit == false) {
+		while (!quit) {
 			switch (os.showOptions()) {
 				case "EASY":
-					GuessingGame easyMode = new GuessingGame("EASY", 5, 10);
-					int easyAttempt = easyMode.start();
-					if (player.easyBestAttempt == 0) {
-						player.easyBestAttempt = easyAttempt;
-						player.update();
-					} else if (easyAttempt < player.easyBestAttempt) {
-						player.easyBestAttempt = easyAttempt;
-						player.update();
-					}
+					GuessingGame easy = new GuessingGame("EASY", 5, 10);
+					int easyAttempt = easy.play(player);
+					player.update(easy.mode, easyAttempt);
 					break;
 				case "NORMAL":
-					GuessingGame normalMode = new GuessingGame("NORMAL", 10, 100);
-					int normalAttempt = normalMode.start();
-					if (player.normalBestAttempt == 0) {
-						player.normalBestAttempt = normalAttempt;
-						player.update();
-					} else if (normalAttempt < player.normalBestAttempt) {
-						player.normalBestAttempt = normalAttempt;
-						player.update();
-					}
+					GuessingGame normal = new GuessingGame("NORMAL", 10, 100);
+					int normalAttempt = normal.play(player);
+					player.update(normal.mode, normalAttempt);
 					break;
 				case "DIFFICULT":
-					GuessingGame difficultMode = new GuessingGame("DIFFICULT", 30, 1000);
-					int difficultAttempt = difficultMode.start();
-					if (player.difficultBestAttempt == 0) {
-						player.difficultBestAttempt = difficultAttempt;
-						player.update();
-					} else if (difficultAttempt < player.difficultBestAttempt) {
-						player.difficultBestAttempt = difficultAttempt;
-						player.update();
-					}
+					GuessingGame difficult = new GuessingGame("DIFFICULT", 20, 1000);
+					int difficultAttempt = difficult.play(player);
+					player.update(difficult.mode, difficultAttempt);
 					break;
 				case "HARDCORE":
-					GuessingGame hardcoreMode = new GuessingGame("HARDCORE", 3, 1000);
-					int hardcoreAttempt = hardcoreMode.start();
-					if (player.hardcoreBestAttempt == 0) {
-						player.hardcoreBestAttempt = hardcoreAttempt;
-						player.update();
-					} else if (hardcoreAttempt < player.hardcoreBestAttempt) {
-						player.hardcoreBestAttempt = hardcoreAttempt;
-						player.update();
-					}
+					GuessingGame hardcore = new GuessingGame("HARDCORE", 3, 1000);
+					int hardcoreAttempt = hardcore.play(player);
+					player.update(hardcore.mode, hardcoreAttempt);
 					break;
 				case "Quit":
 					quit = true;

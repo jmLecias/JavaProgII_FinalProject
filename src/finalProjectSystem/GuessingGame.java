@@ -1,5 +1,6 @@
 package finalProjectSystem;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -8,29 +9,29 @@ public class GuessingGame {
 	final int dividerLength = 62;
 
 	// GuessingGame class attributes
-	String title;
+	String mode;
 	int maxAttempts;
 	int range;
 
 	// Guessing game class constructor
-	public GuessingGame(String title, int maxAttempts, int range) {
-		this.title = title;
+	public GuessingGame(String mode, int maxAttempts, int range) {
+		this.mode = mode;
 		this.maxAttempts = maxAttempts;
 		this.range = range;
 	}
 
-	// function for starting the game
-	public int start() {
+	// method for starting the game return guess attempts
+	public int play(Player player) {
 		Random rand = new Random();
 		int numToGuess = rand.nextInt(this.range) + 1;
 
-		int numOfAttempts = 0;
-		int guess;
+		int guessAttempts = 0;
 		Boolean win = false;
+		int guess;
 
 		Main.divider('-', this.dividerLength);
-		Main.centerStart(this.dividerLength, this.title.length());
-		System.out.println(this.title);
+		Main.centerStart(this.dividerLength, this.mode.length());
+		System.out.println(this.mode);
 
 		System.out.println("\n Guess a number from 1 - " + this.range);
 		System.out.println(" Max Attempts: " + this.maxAttempts + "\n");
@@ -38,33 +39,53 @@ public class GuessingGame {
 		for (int i = 1; i <= this.maxAttempts; i++) {
 			guess = getGuessInput(" Enter your guess here> ");
 
-			// Logic
+			// The Guessing Game Logic
+
 			if (guess > 0 && guess < numToGuess) {
+				// when player guess is lower than the number to be guessed
 				System.out.println(" You guessed low. Attempts left: " + (this.maxAttempts - i));
-				numOfAttempts = i;
+				guessAttempts = i;
 			} else if (guess > numToGuess && guess <= this.range) {
+				// when player guess is higher than the number to be guessed
 				System.out.println(" You guessed high. Attempts left: " + (this.maxAttempts - i));
-				numOfAttempts = i;
+				guessAttempts = i;
 			} else if (guess == numToGuess) {
+				// when player guessed the right number
+				guessAttempts = i;
 				System.out.println("\n Congratulations! You guessed the number: " + numToGuess);
-				numOfAttempts = i;
-				System.out.println(" It only took you " + numOfAttempts + " attempts to guess the right number.");
+				System.out.println(" It only took you " + guessAttempts + " attempts to guess the right number.\n");
+
+				if (guessAttempts < player.getBestAttempt(this.mode)) {
+					// when new best attempt is acquired
+					System.out.println(" Wow! You've outdid your previous record of " +
+							player.getBestAttempt(this.mode) + " attempts.");
+					System.out.println(" Your new best record is now " +
+							guessAttempts + " attempt(s).");
+				} else if (player.getBestAttempt(this.mode) != 0) {
+					// when no new best attempt is acquired
+					System.out.println(" Your best record is " +
+							player.getBestAttempt(this.mode) + " attempt(s).");
+				}
+
+				guessAttempts = i;
 				win = true;
+
 				Main.divider('-', this.dividerLength);
+
 				break;
 			} else {
-				System.out.println(" Your guess is out of range, guess the number from 1 to "
-						+ this.range);
+				// when guess is not in the range
+				System.out.println(" Your guess is out of range, guess the number from 1 to " + this.range);
 			}
 		}
 
 		if (!win) {
-			System.out.println("\n Sorry, you lost. You failed to guess the right number.");
+			// when player fails to guess the number and reaches the max number of attempts
+			System.out.println("\n Sorry, you've lost. You failed to guess the right number.");
 			Main.divider('-', this.dividerLength);
-			return 0;
 		}
 
-		return numOfAttempts;
+		return guessAttempts;
 	}
 
 	// function for getting guess input

@@ -27,17 +27,17 @@ public class Player {
 	// method for logging in a player
 	public String login(String message) throws IOException {
 		Player[] players = Main.getPlayers(directoryPath);
-		
+
 		Boolean isPlayerFound = false;
 		Boolean isPasswordCorrect = false;
-		
+
 		for (int i = 0; i < players.length; i++) {
 			if (this.userName.equals(players[i].userName)) {
 				isPlayerFound = true;
-				
+
 				if (this.password.equals(players[i].password)) {
 					isPasswordCorrect = true;
-					
+
 					String decision = Main.getInput(message, "[y Y n N]");
 					if (decision.matches("[y Y]")) {
 						this.easyBestAttempt = players[i].easyBestAttempt;
@@ -51,15 +51,15 @@ public class Player {
 				}
 			}
 		}
-		
-		if(!isPlayerFound) {
+
+		if (!isPlayerFound) {
 			System.out.println(" Player not found.");
 		}
-		
-		if(isPlayerFound && !isPasswordCorrect) {
+
+		if (isPlayerFound && !isPasswordCorrect) {
 			System.out.println(" Password is incorrect.");
 		}
-		
+
 		return null;
 	}
 
@@ -76,22 +76,10 @@ public class Player {
 
 		String decision = Main.getInput(message, "[y Y n N]");
 		if (decision.matches("[y Y]")) {
-			File file = new File(this.DIRECTORY);
-			file.mkdirs();
-			FileWriter fw = new FileWriter(new File(
-					this.DIRECTORY,
-					this.userName + ".txt"));
-			try {
-				fw.write("userName: " + userName);
-				fw.write("\nPassword: " + password);
-				fw.write("\nEasy       - " + easyBestAttempt);
-				fw.write("\nNormal     - " + normalBestAttempt);
-				fw.write("\nDifficult  - " + difficultBestAttempt);
-				fw.write("\nHardcore   - " + hardcoreBestAttempt);
-				fw.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			directoryPath.mkdirs();
+
+			writeFile();
+
 			return "Y";
 		} else {
 			return "N";
@@ -99,23 +87,70 @@ public class Player {
 
 	}
 
+	// method for getting best attempt depending on gamemode
+	public int getBestAttempt(String gamemode) {
+		switch (gamemode) {
+			case "EASY":
+				return this.easyBestAttempt;
+			case "NORMAL":
+				return this.normalBestAttempt;
+			case "DIFFICULT":
+				return this.difficultBestAttempt;
+			case "HARDCORE":
+				return this.hardcoreBestAttempt;
+		}
+		return 0;
+	}
+
 	// method for updating a player and its file
-	public void update() throws IOException {
+	public void update(String gamemode, int newAttempt) throws IOException {
+		int attempt = 0;
+
+		switch (gamemode) {
+			case "EASY":
+				attempt = this.easyBestAttempt;
+				if (attempt == 0 || newAttempt < attempt) {
+					this.easyBestAttempt = newAttempt;
+				}
+				break;
+			case "NORMAL":
+				attempt = this.normalBestAttempt;
+				if (attempt == 0 || newAttempt < attempt) {
+					this.normalBestAttempt = newAttempt;
+				}
+				break;
+			case "DIFFICULT":
+				attempt = this.difficultBestAttempt;
+				if (attempt == 0 || newAttempt < attempt) {
+					this.difficultBestAttempt = newAttempt;
+				}
+				break;
+			case "HARDCORE":
+				attempt = this.hardcoreBestAttempt;
+				if (attempt == 0 || newAttempt < attempt) {
+					this.hardcoreBestAttempt = newAttempt;
+				}
+				break;
+		}
+
+		writeFile();
+	}
+
+	// function for writing file with layout
+	private void writeFile() throws IOException {
 		FileWriter fw = new FileWriter(new File(
 				this.DIRECTORY,
 				this.userName + ".txt"));
 		try {
-			fw.write("userName: " + userName);
-			fw.write("\nPassword: " + password);
-			fw.write("\nEasy       - " + easyBestAttempt);
-			fw.write("\nNormal     - " + normalBestAttempt);
-			fw.write("\nDifficult  - " + difficultBestAttempt);
-			fw.write("\nHardcore   - " + hardcoreBestAttempt);
+			fw.write("userName: " + this.userName);
+			fw.write("\nPassword: " + this.password);
+			fw.write("\nEasy       - " + this.easyBestAttempt);
+			fw.write("\nNormal     - " + this.normalBestAttempt);
+			fw.write("\nDifficult  - " + this.difficultBestAttempt);
+			fw.write("\nHardcore   - " + this.hardcoreBestAttempt);
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
-
 }
