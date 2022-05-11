@@ -91,8 +91,7 @@ public class Player {
 		return null;
 	}
 	
-
-	// method for getting best attempt on game mode
+	// method for getting best attempt depending on game mode
 	public int getBestAttempt(String gamemode) {
 		switch (gamemode) {
 			case "EASY":
