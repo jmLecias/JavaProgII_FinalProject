@@ -31,27 +31,29 @@ public class Player {
 		Boolean isPlayerFound = false;
 		Boolean isPasswordCorrect = false;
 
-		for (int i = 0; i < players.length; i++) {
-			if (this.userName.equals(players[i].userName)) {
-				isPlayerFound = true;
+		if(players != null) {
+			for (int i = 0; i < players.length; i++) {
+				if (this.userName.equals(players[i].userName)) {
+					isPlayerFound = true;
 
-				if (this.password.equals(players[i].password)) {
-					isPasswordCorrect = true;
+					if (this.password.equals(players[i].password)) {
+						isPasswordCorrect = true;
 
-					String decision = Main.getInput(message, "[y Y n N]");
-					if (decision.matches("[y Y]")) {
-						this.easyBestAttempt = players[i].easyBestAttempt;
-						this.normalBestAttempt = players[i].normalBestAttempt;
-						this.difficultBestAttempt = players[i].difficultBestAttempt;
-						this.hardcoreBestAttempt = players[i].hardcoreBestAttempt;
-						return "Y";
-					} else {
-						return "N";
+						String decision = Main.getInput(message, "[y Y n N]");
+						if (decision.matches("[y Y]")) {
+							this.easyBestAttempt = players[i].easyBestAttempt;
+							this.normalBestAttempt = players[i].normalBestAttempt;
+							this.difficultBestAttempt = players[i].difficultBestAttempt;
+							this.hardcoreBestAttempt = players[i].hardcoreBestAttempt;
+							return "Y";
+						} else {
+							return "N";
+						}
 					}
 				}
 			}
 		}
-
+		
 		if (!isPlayerFound) {
 			System.out.println(" Player not found.");
 		}
@@ -67,12 +69,15 @@ public class Player {
 	public String register(String message) throws IOException {
 		Player[] players = Main.getPlayers(directoryPath);
 
-		for (Player player : players) {
-			if (this.userName.equals(player.userName)) {
-				System.out.println(" Username is already taken.");
-				return null;
+		if(players != null) {
+			for (Player player : players) {
+				if (this.userName.equals(player.userName)) {
+					System.out.println(" Username is already taken.");
+					return null;
+				}
 			}
 		}
+		
 
 		String decision = Main.getInput(message, "[y Y n N]");
 		if (decision.matches("[y Y]")) {
@@ -87,7 +92,7 @@ public class Player {
 
 	}
 
-	// method for getting best attempt depending on gamemode
+	// method for getting best attempt depending on game mode
 	public int getBestAttempt(String gamemode) {
 		switch (gamemode) {
 			case "EASY":
