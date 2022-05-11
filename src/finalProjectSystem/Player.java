@@ -24,56 +24,19 @@ public class Player {
 		this.password = password;
 	}
 
-	// method for logging in a player
-	public String login(String message) throws IOException {
-		Player[] players = Main.getPlayers(directoryPath);
-
-		Boolean isPlayerFound = false;
-		Boolean isPasswordCorrect = false;
-
-		for (int i = 0; i < players.length; i++) {
-			if (this.userName.equals(players[i].userName)) {
-				isPlayerFound = true;
-
-				if (this.password.equals(players[i].password)) {
-					isPasswordCorrect = true;
-
-					String decision = Main.getInput(message, "[y Y n N]");
-					if (decision.matches("[y Y]")) {
-						this.easyBestAttempt = players[i].easyBestAttempt;
-						this.normalBestAttempt = players[i].normalBestAttempt;
-						this.difficultBestAttempt = players[i].difficultBestAttempt;
-						this.hardcoreBestAttempt = players[i].hardcoreBestAttempt;
-						return "Y";
-					} else {
-						return "N";
-					}
-				}
-			}
-		}
-
-		if (!isPlayerFound) {
-			System.out.println(" Player not found.");
-		}
-
-		if (isPlayerFound && !isPasswordCorrect) {
-			System.out.println(" Password is incorrect.");
-		}
-
-		return null;
-	}
-
 	// method for creating a file for the player
 	public String register(String message) throws IOException {
 		Player[] players = Main.getPlayers(directoryPath);
 
-		for (Player player : players) {
-			if (this.userName.equals(player.userName)) {
-				System.out.println(" Username is already taken.");
-				return null;
+		if(players != null) {
+			for (Player player : players) {
+				if (this.userName.equals(player.userName)) {
+					System.out.println(" Username is already taken.");
+					return null;
+				}
 			}
 		}
-
+		
 		String decision = Main.getInput(message, "[y Y n N]");
 		if (decision.matches("[y Y]")) {
 			directoryPath.mkdirs();
@@ -86,8 +49,50 @@ public class Player {
 		}
 
 	}
+	
+	// method for logging in a player
+	public String login(String message) throws IOException {
+		Player[] players = Main.getPlayers(directoryPath);
 
-	// method for getting best attempt depending on gamemode
+		Boolean isPlayerFound = false;
+		Boolean isPasswordCorrect = false;
+
+		if(players != null) {
+			for (int i = 0; i < players.length; i++) {
+				if (this.userName.equals(players[i].userName)) {
+					isPlayerFound = true;
+
+					if (this.password.equals(players[i].password)) {
+						isPasswordCorrect = true;
+
+						String decision = Main.getInput(message, "[y Y n N]");
+						if (decision.matches("[y Y]")) {
+							this.easyBestAttempt = players[i].easyBestAttempt;
+							this.normalBestAttempt = players[i].normalBestAttempt;
+							this.difficultBestAttempt = players[i].difficultBestAttempt;
+							this.hardcoreBestAttempt = players[i].hardcoreBestAttempt;
+							return "Y";
+						} else {
+							return "N";
+						}
+					}
+				}
+			}
+		}
+		
+		if (!isPlayerFound) {
+			System.out.println(" Player not found.");
+		}
+
+		if (isPlayerFound && !isPasswordCorrect) {
+			System.out.println(" Password is incorrect.");
+		}
+
+		return null;
+	}
+	
+
+	// method for getting best attempt on game mode
 	public int getBestAttempt(String gamemode) {
 		switch (gamemode) {
 			case "EASY":

@@ -9,14 +9,14 @@ public class LeaderBoards {
 	final int dividerLength = 62;
 
 	// Class attributes
-	String gamemode;
+	String gamemode; // Easy, Normal, Difficult, Hardcore
 
 	// Class constructor
 	public LeaderBoards(String gamemode) {
 		this.gamemode = gamemode;
 	}
 
-	// method for showing leaderboard depending on gamemode
+	// method for showing leader board depending on game mode
 	public void show() throws IOException {
 		Player[] players = Main.getPlayers(directoryPath);
 
@@ -70,7 +70,7 @@ public class LeaderBoards {
 		return condition;
 	}
 
-	// function for getting the best attempt depending on gamemode
+	// function for getting the best attempt depending on game mode
 	private int getAttempt(Player player) {
 		int attempt = 0;
 

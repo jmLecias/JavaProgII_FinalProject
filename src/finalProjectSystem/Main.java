@@ -110,30 +110,34 @@ public class Main {
 	public static Player[] getPlayers(File directoryPath) throws IOException {
 		File[] filesList = directoryPath.listFiles();
 
-		Player[] players = new Player[filesList.length];
+		Player[] players = (filesList != null)? new Player[filesList.length] : null;
+		
+		if(filesList != null) {
+			for (int i = 0; i < filesList.length; i++) {
+				String userName = Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(0).substring(10);
+				String password = Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(1).substring(10);
 
-		for (int i = 0; i < filesList.length; i++) {
-			String userName = Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(0).substring(10);
-			String password = Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(1).substring(10);
+				int easyBestAttempt = Integer.valueOf(
+						Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(2).substring(13));
+				int normalBestAttempt = Integer.valueOf(
+						Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(3).substring(13));
+				int difficultBestAttempt = Integer.valueOf(
+						Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(4).substring(13));
+				int hardcoreBestAttempt = Integer.valueOf(
+						Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(5).substring(13));
 
-			int easyBestAttempt = Integer.valueOf(
-					Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(2).substring(13));
-			int normalBestAttempt = Integer.valueOf(
-					Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(3).substring(13));
-			int difficultBestAttempt = Integer.valueOf(
-					Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(4).substring(13));
-			int hardcoreBestAttempt = Integer.valueOf(
-					Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(5).substring(13));
+				Player player = new Player(userName, password);
+				player.easyBestAttempt = easyBestAttempt;
+				player.normalBestAttempt = normalBestAttempt;
+				player.difficultBestAttempt = difficultBestAttempt;
+				player.hardcoreBestAttempt = hardcoreBestAttempt;
 
-			Player player = new Player(userName, password);
-			player.easyBestAttempt = easyBestAttempt;
-			player.normalBestAttempt = normalBestAttempt;
-			player.difficultBestAttempt = difficultBestAttempt;
-			player.hardcoreBestAttempt = hardcoreBestAttempt;
-
-			players[i] = player;
+				players[i] = player;
+			}
+			
+			return players;
 		}
-
+		
 		return players;
 	}
 
