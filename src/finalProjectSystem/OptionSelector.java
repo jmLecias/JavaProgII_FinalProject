@@ -3,6 +3,8 @@ package finalProjectSystem;
 import java.util.Scanner;
 
 public class OptionSelector {
+	// Coded by: Ruby Lingo BSIT -AI11
+
 	// Class attributes
 	String title;
 	String[] options;

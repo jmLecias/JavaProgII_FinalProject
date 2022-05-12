@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class GuessingGame {
 	// Coded by: Victor Lopez
+	
 	final int dividerLength = 62;
 
 	// GuessingGame class attributes

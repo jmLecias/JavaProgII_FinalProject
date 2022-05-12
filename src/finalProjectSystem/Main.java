@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.io.File;
 
 public class Main {
-
+	// Coded by: John Mark T. lecias BSIT - AI11
 	public static void main(String[] args) throws IOException {
 
 		Player currentPlayer = null;

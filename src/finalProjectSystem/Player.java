@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Player {
+	// Coded by: John Mark Lecias BSIT -AI11
+
 	// All added players are located in C: drive
 	final String DIRECTORY = "C:/GuessTheNumber_Players";
 	final File directoryPath = new File(DIRECTORY);

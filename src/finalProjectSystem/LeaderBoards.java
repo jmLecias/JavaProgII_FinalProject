@@ -4,9 +4,12 @@ import java.io.File;
 import java.io.IOException;
 
 public class LeaderBoards {
+	// Coded by: Kresna Alido & Samantha Nicole Duero BSIT -AI11
+
+	final int dividerLength = 62;
+
 	// All added players are located in C: drive
 	final File directoryPath = new File("C:/GuessTheNumber_Players");
-	final int dividerLength = 62;
 
 	// Class attributes
 	String gamemode; // Easy, Normal, Difficult, Hardcore
