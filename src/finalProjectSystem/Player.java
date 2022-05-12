@@ -23,7 +23,7 @@ public class Player {
 	}
 
 	// method for creating a file for the player
-	public String register(String message) throws IOException {
+	public String register() throws IOException {
 		Player[] players = Main.getPlayers();
 
 		if(players != null) {
@@ -35,7 +35,7 @@ public class Player {
 			}
 		}
 		
-		String decision = Main.getInput(message, "[y Y n N]");
+		String decision = Main.getInput(" Continue? (y/n): ", "[y Y n N]");
 		if (decision.matches("[y Y]")) {
 
 			writeFile();
@@ -48,7 +48,7 @@ public class Player {
 	}
 	
 	// method for logging in a player
-	public String login(String message) throws IOException {
+	public String login() throws IOException {
 		Player[] players = Main.getPlayers();
 
 		Boolean isPlayerFound = false;
@@ -62,7 +62,7 @@ public class Player {
 					if (this.password.equals(players[i].password)) {
 						isPasswordCorrect = true;
 
-						String decision = Main.getInput(message, "[y Y n N]");
+						String decision = Main.getInput(" Continue? (y/n): ", "[y Y n N]");
 						if (decision.matches("[y Y]")) {
 							this.easyBestAttempt = players[i].easyBestAttempt;
 							this.normalBestAttempt = players[i].normalBestAttempt;
@@ -110,27 +110,23 @@ public class Player {
 		switch (gamemode) {
 			case "EASY":
 				attempt = this.easyBestAttempt;
-				if (attempt == 0 || newAttempt < attempt) {
-					this.easyBestAttempt = newAttempt;
-				}
+				if (attempt == 0 || newAttempt != 0 && newAttempt < attempt) {
+					this.easyBestAttempt = newAttempt;}
 				break;
 			case "NORMAL":
 				attempt = this.normalBestAttempt;
-				if (attempt == 0 || newAttempt < attempt) {
-					this.normalBestAttempt = newAttempt;
-				}
+				if (attempt == 0 || newAttempt != 0 && newAttempt < attempt) {
+					this.normalBestAttempt = newAttempt;}
 				break;
 			case "DIFFICULT":
 				attempt = this.difficultBestAttempt;
-				if (attempt == 0 || newAttempt < attempt) {
-					this.difficultBestAttempt = newAttempt;
-				}
+				if (attempt == 0 || newAttempt != 0 && newAttempt < attempt) {
+					this.difficultBestAttempt = newAttempt;}
 				break;
 			case "HARDCORE":
 				attempt = this.hardcoreBestAttempt;
-				if (attempt == 0 || newAttempt < attempt) {
-					this.hardcoreBestAttempt = newAttempt;
-				}
+				if (attempt == 0 || newAttempt != 0 && newAttempt < attempt) {
+					this.hardcoreBestAttempt = newAttempt;}
 				break;
 		}
 

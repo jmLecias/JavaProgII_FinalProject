@@ -29,7 +29,7 @@ public class GuessingGame {
 
 		Main.divider('-', Main.dividerLength);
 
-		Main.centerStart(Main.dividerLength, this.mode);
+		Main.centerStart(Main.dividerLength, this.mode, 0);
 
 		System.out.println("\n Guess a number from 1 - " + this.range);
 		System.out.println(" Max Attempts: " + this.maxAttempts + "\n");
@@ -81,6 +81,7 @@ public class GuessingGame {
 			// when player fails to guess the number and reaches the max number of attempts
 			System.out.println("\n Sorry, you've lost. You failed to guess the right number.");
 			Main.divider('-', Main.dividerLength);
+			return 0;
 		}
 
 		return guessAttempts;

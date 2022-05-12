@@ -24,10 +24,10 @@ public class OptionSelector {
 		// Display layout
 		Main.divider('=', this.dividerLength);
 
-		Main.centerStart(this.dividerLength, this.title);
+		Main.centerStart(this.dividerLength, this.title, 0);
 
 		for (int i = 0; i < this.options.length; i++) {
-			Main.centerStart(this.dividerLength, ("[" + (i + 1) + "] " + this.options[i]));
+			Main.centerStart(this.dividerLength, ("[" + (i + 1) + "] " + this.options[i]), 16);
 		}
 
 		Main.divider('=', this.dividerLength);
@@ -49,7 +49,7 @@ public class OptionSelector {
 
 		Main.divider('-', this.dividerLength);
 
-		Main.centerStart(this.dividerLength, title);
+		Main.centerStart(this.dividerLength, title, 0);
 		
 		for (int i = 0; i < optionFields.length; i++) {
 			System.out.print(" " + optionFields[i] + ": ");
