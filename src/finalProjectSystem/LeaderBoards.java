@@ -6,7 +6,7 @@ public class LeaderBoards {
 	// Coded by: Kresna Alido & Samantha Nicole Duero BSIT -AI11
 
 	// Class attributes
-	String gamemode; // Easy, Normal, Difficult, Hardcore
+	String gamemode; /* Easy, Normal, Difficult, Hardcore */
 
 	// Class constructor
 	public LeaderBoards(String gamemode) {
@@ -31,13 +31,13 @@ public class LeaderBoards {
 		// shows leader board
 		Main.divider('-', Main.dividerLength);
 
-		Main.centerStart(Main.dividerLength, this.gamemode);
+		Main.centerStart(Main.dividerLength, this.gamemode, 0);
 
 		for (int i = 0; i < players.length; i++) {
 			if (getAttempt(players[i]) != 0) {
 				String playerLine = players[i].userName + " - " + String.valueOf(getAttempt(players[i]));
 
-				Main.centerStart(Main.dividerLength, playerLine);
+				Main.centerStart(Main.dividerLength, playerLine, 0);
 			}
 		}
 

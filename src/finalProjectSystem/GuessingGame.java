@@ -29,7 +29,7 @@ public class GuessingGame {
 
 		Main.divider('-', Main.dividerLength);
 
-		Main.centerStart(Main.dividerLength, this.mode);
+		Main.centerStart(Main.dividerLength, this.mode, 0);
 
 		System.out.println("\n Guess a number from 1 - " + this.range);
 		System.out.println(" Max Attempts: " + this.maxAttempts + "\n");
