@@ -12,6 +12,7 @@ public class Main {
 	// All registered players are located in C: drive
 	final static String DIRECTORY = "C:/GuessTheNumber_Players";
 	final static File directoryPath = new File(DIRECTORY);
+	final static int dividerLength = 62;
 
 	public static void main(String[] args) throws IOException {
 		// Creates the GuessTheNumber_Players in C:/
@@ -24,8 +25,8 @@ public class Main {
 		final String[] LOGIN_FIELDS = { "Username", "Password" };
 		final String[] REGISTER_FIELDS = { "Username", "Password" };
 
-		OptionSelector homeOS = new OptionSelector("The Guessing Game", HOME_OPTIONS, 62);
-		OptionSelector gameOS = new OptionSelector("GAMEMODES", GAME_OPTIONS, 62);
+		OptionSelector homeOS = new OptionSelector("The Guessing Game", HOME_OPTIONS, dividerLength);
+		OptionSelector gameOS = new OptionSelector("GAMEMODES", GAME_OPTIONS, dividerLength);
 
 		while (true) {
 			switch (homeOS.showOptions()) {
@@ -63,8 +64,7 @@ public class Main {
 					}
 				case "LEADERBOARDS":
 					System.out.println();
-					Main.centerStart(62, 12);
-					System.out.println("LEADERBOARDS");
+					Main.centerStart(62, "LEADERBOARDS");
 
 					LeaderBoards easyLB = new LeaderBoards("Easy");
 					easyLB.show();
@@ -167,10 +167,11 @@ public class Main {
 	}
 
 	// Center Spacer utility
-	// prints spaces to center a println
-	public static void centerStart(int parentLength, int itemLength) {
-		for (int i = 1; i <= ((parentLength / 2) - (itemLength / 2)); i++) {
+	// prints a string to the center relative to specified length
+	public static void centerStart(int parentLength, String str) {
+		for (int i = 1; i <= ((parentLength / 2) - (str.length() / 2)); i++) {
 			System.out.print(" ");
+			System.out.println(str);
 		}
 	}
 

@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 public class GuessingGame {
 	// Coded by: Victor Lopez
-	
-	final int dividerLength = 62;
 
 	// GuessingGame class attributes
 	String mode;
@@ -29,9 +27,9 @@ public class GuessingGame {
 		Boolean win = false;
 		int guess;
 
-		Main.divider('-', this.dividerLength);
-		Main.centerStart(this.dividerLength, this.mode.length());
-		System.out.println(this.mode);
+		Main.divider('-', Main.dividerLength);
+
+		Main.centerStart(Main.dividerLength, this.mode);
 
 		System.out.println("\n Guess a number from 1 - " + this.range);
 		System.out.println(" Max Attempts: " + this.maxAttempts + "\n");
@@ -70,7 +68,7 @@ public class GuessingGame {
 				guessAttempts = i;
 				win = true;
 
-				Main.divider('-', this.dividerLength);
+				Main.divider('-', Main.dividerLength);
 
 				break;
 			} else {
@@ -82,7 +80,7 @@ public class GuessingGame {
 		if (!win) {
 			// when player fails to guess the number and reaches the max number of attempts
 			System.out.println("\n Sorry, you've lost. You failed to guess the right number.");
-			Main.divider('-', this.dividerLength);
+			Main.divider('-', Main.dividerLength);
 		}
 
 		return guessAttempts;

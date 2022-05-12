@@ -1,12 +1,9 @@
 package finalProjectSystem;
 
-import java.io.File;
 import java.io.IOException;
 
 public class LeaderBoards {
 	// Coded by: Kresna Alido & Samantha Nicole Duero BSIT -AI11
-
-	final int dividerLength = 62;
 
 	// Class attributes
 	String gamemode; // Easy, Normal, Difficult, Hardcore
@@ -32,20 +29,19 @@ public class LeaderBoards {
 		}
 
 		// shows leader board
-		Main.divider('-', this.dividerLength);
-		Main.centerStart(this.dividerLength, this.gamemode.length());
-		System.out.println(this.gamemode);
+		Main.divider('-', Main.dividerLength);
+
+		Main.centerStart(Main.dividerLength, this.gamemode);
 
 		for (int i = 0; i < players.length; i++) {
 			if (getAttempt(players[i]) != 0) {
 				String playerLine = players[i].userName + " - " + String.valueOf(getAttempt(players[i]));
 
-				Main.centerStart(this.dividerLength, playerLine.length());
-				System.out.println(playerLine);
+				Main.centerStart(Main.dividerLength, playerLine);
 			}
 		}
 
-		Main.divider('-', this.dividerLength);
+		Main.divider('-', Main.dividerLength);
 	}
 
 	// function for getting bubble sort condition depending on game mode
