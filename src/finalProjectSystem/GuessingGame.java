@@ -105,3 +105,4 @@ public class GuessingGame {
 		return guess;
 	}
 }
+// end of Guessing Game class

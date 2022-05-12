@@ -7,10 +7,6 @@ import java.io.IOException;
 public class Player {
 	// Coded by: John Mark Lecias BSIT -AI11
 
-	// All added players are located in C: drive
-	final String DIRECTORY = "C:/GuessTheNumber_Players";
-	final File directoryPath = new File(DIRECTORY);
-
 	// Player class attributes
 	String userName;
 	String password;
@@ -28,7 +24,7 @@ public class Player {
 
 	// method for creating a file for the player
 	public String register(String message) throws IOException {
-		Player[] players = Main.getPlayers(directoryPath);
+		Player[] players = Main.getPlayers();
 
 		if(players != null) {
 			for (Player player : players) {
@@ -41,7 +37,6 @@ public class Player {
 		
 		String decision = Main.getInput(message, "[y Y n N]");
 		if (decision.matches("[y Y]")) {
-			directoryPath.mkdirs();
 
 			writeFile();
 
@@ -54,7 +49,7 @@ public class Player {
 	
 	// method for logging in a player
 	public String login(String message) throws IOException {
-		Player[] players = Main.getPlayers(directoryPath);
+		Player[] players = Main.getPlayers();
 
 		Boolean isPlayerFound = false;
 		Boolean isPasswordCorrect = false;
@@ -145,7 +140,7 @@ public class Player {
 	// function for writing file with layout
 	private void writeFile() throws IOException {
 		FileWriter fw = new FileWriter(new File(
-				this.DIRECTORY,
+				Main.DIRECTORY,
 				this.userName + ".txt"));
 		try {
 			fw.write("userName: " + this.userName);
@@ -160,3 +155,4 @@ public class Player {
 		}
 	}
 }
+// end of Player class

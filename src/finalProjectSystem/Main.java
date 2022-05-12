@@ -8,7 +8,14 @@ import java.io.File;
 
 public class Main {
 	// Coded by: John Mark T. lecias BSIT - AI11
+
+	// All registered players are located in C: drive
+	final static String DIRECTORY = "C:/GuessTheNumber_Players";
+	final static File directoryPath = new File(DIRECTORY);
+
 	public static void main(String[] args) throws IOException {
+		// Creates the GuessTheNumber_Players in C:/
+		directoryPath.mkdirs();
 
 		Player currentPlayer = null;
 
@@ -107,15 +114,17 @@ public class Main {
 	}
 
 	// function for getting all registered players
-	public static Player[] getPlayers(File directoryPath) throws IOException {
+	public static Player[] getPlayers() throws IOException {
 		File[] filesList = directoryPath.listFiles();
 
 		Player[] players = (filesList != null)? new Player[filesList.length] : null;
 		
 		if(filesList != null) {
 			for (int i = 0; i < filesList.length; i++) {
-				String userName = Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(0).substring(10);
-				String password = Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(1).substring(10);
+				String userName = 
+						Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(0).substring(10);
+				String password = 
+						Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(1).substring(10);
 
 				int easyBestAttempt = Integer.valueOf(
 						Files.readAllLines(Paths.get(filesList[i].getAbsolutePath())).get(2).substring(13));
@@ -141,7 +150,10 @@ public class Main {
 		return players;
 	}
 
-	// input utility
+	/* ------------------------ UTILITIES ---------------------------- */
+
+	// Input utility
+	// loops while input does not match Regex, else returns input in String
 	public static String getInput(String message, String validationRegex) {
 		Scanner sc = new Scanner(System.in);
 		String in;
@@ -154,14 +166,16 @@ public class Main {
 		}
 	}
 
-	// center spacer utility
+	// Center Spacer utility
+	// prints spaces to center a println
 	public static void centerStart(int parentLength, int itemLength) {
 		for (int i = 1; i <= ((parentLength / 2) - (itemLength / 2)); i++) {
 			System.out.print(" ");
 		}
 	}
 
-	// divider utility
+	// Divider utility
+	// prints a character line (divider) depending on its specified length
 	public static void divider(char divider, int dividerLength) {
 		for (int i = 1; i <= (dividerLength); i++) {
 			System.out.print(divider);
@@ -170,3 +184,4 @@ public class Main {
 	}
 
 }
+// end of Main class

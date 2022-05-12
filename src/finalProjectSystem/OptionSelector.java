@@ -17,7 +17,7 @@ public class OptionSelector {
 		this.dividerLength = dividerLength;
 	}
 
-	// method for showing and choosing options
+	// method for showing and choosing options, returns the chosen option in String
 	public String showOptions() {
 		String chosenOption = "";
 
@@ -43,7 +43,7 @@ public class OptionSelector {
 		return chosenOption;
 	}
 
-	// method for getting inputs from specific option
+	// method for getting inputs from specific option, returns input of users in a String[]
 	public String[] optionFields(String title, String[] optionFields) {
 		Scanner sc = new Scanner(System.in);
 		String[] fieldInputs = new String[optionFields.length];
@@ -63,3 +63,4 @@ public class OptionSelector {
 	}
 
 }
+// end of Option Selector class

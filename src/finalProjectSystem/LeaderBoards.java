@@ -8,9 +8,6 @@ public class LeaderBoards {
 
 	final int dividerLength = 62;
 
-	// All added players are located in C: drive
-	final File directoryPath = new File("C:/GuessTheNumber_Players");
-
 	// Class attributes
 	String gamemode; // Easy, Normal, Difficult, Hardcore
 
@@ -21,7 +18,7 @@ public class LeaderBoards {
 
 	// method for showing leader board depending on game mode
 	public void show() throws IOException {
-		Player[] players = Main.getPlayers(directoryPath);
+		Player[] players = Main.getPlayers();
 
 		// bubble sort
 		for (int i = 0; i < players.length; i++) {
@@ -96,3 +93,4 @@ public class LeaderBoards {
 	}
 
 }
+// end of Leader boards class
